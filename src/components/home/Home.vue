@@ -49,6 +49,8 @@
 import Painel from "../shared/painel/Painel.vue";
 import ImagemResponsiva from "../shared/imagem-responsiva/imagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
+// importou  diretiva. Tem que adicionar na propriedade directives logo abaixo!
+import transform from "../../directives/Transform";
 
 export default {
   //declarando meu componente para usar no template
@@ -96,6 +98,9 @@ export default {
     remove(foto) {
       alert("remover foto: " + foto.titulo);
     }
+  },
+  directives: {
+    "meu-transform": transform
   }
 };
 </script>
