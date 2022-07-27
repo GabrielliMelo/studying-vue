@@ -1,39 +1,26 @@
-<!-- alurapic/src/components/cadastro/Cadastro.vue -->
-
 <template>
   <div>
     <h1 class="centralizado">Cadastro</h1>
-    <h2 class="centralizado"></h2>
+    <h2 class="centralizado">{{ foto.titulo }}</h2>
 
     <form @submit.prevent="grava()">
       <div class="controle">
         <label for="titulo">TÍTULO</label>
-        <input
-          id="titulo"
-          autocomplete="off"
-          :value="foto.titulo"
-          @input="foto.titulo = $event.target.value"
-        />
+        <input v-model.lazy="foto.titulo" id="titulo" autocomplete="off" />
       </div>
 
       <div class="controle">
         <label for="url">URL</label>
-        <input
-          id="url"
-          autocomplete="off"
-          :value="foto.url"
-          @input="foto.url = $event.target.value"
-        />
-        <imagem-responsiva />
+        <input v-model.lazy="foto.url" id="url" autocomplete="off" />
+        <imagem-responsiva :url="foto.url" :titulo="foto.titulo" />
       </div>
 
       <div class="controle">
         <label for="descricao">DESCRIÇÃO</label>
         <textarea
+          v-model="foto.descricao"
           id="descricao"
           autocomplete="off"
-          @input="foto.descricao = $event.target.value"
-          :value="foto.descricao"
         ></textarea>
       </div>
 
