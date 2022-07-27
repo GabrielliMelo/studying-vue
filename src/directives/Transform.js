@@ -22,6 +22,10 @@ Vue.directive("meu-transform", {
         efeito = `scale(${incremento})`;
       }
 
+      if (binding.arg == "teste") {
+        this.style.transform = `scale(1.05)`;
+      }
+
       this.style.transform = efeito;
 
       if (binding.modifiers.animate) this.style.transition = "transform 0.5s";

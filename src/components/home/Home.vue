@@ -11,7 +11,7 @@
       <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
         <!-- componente sendo usado e passando via props conteudo !! -->
         <meu-painel
-          v-meu-transform.animate.reverse="15"
+          v-meu-transform:teste.animate.reverse="15"
           :titulo="foto.titulo"
           :texto="mensagem"
         >
