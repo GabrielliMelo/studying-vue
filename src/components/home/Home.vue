@@ -11,11 +11,15 @@
       <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
         <!-- componente sendo usado e passando via props conteudo !! -->
         <meu-painel
-          v-meu-transform="{ incremento: 15, animate: true }"
+          v-meu-transform.animate.reverse="15"
           :titulo="foto.titulo"
           :texto="mensagem"
         >
-          <imagem-responsiva :url="foto.url" :titulo="foto.titulo" />
+          <imagem-responsiva
+            :url="foto.url"
+            :titulo="foto.titulo"
+            v-meu-transform.animate.reverse="15"
+          />
           <meu-botao
             rotulo="remover"
             tipo="button"
