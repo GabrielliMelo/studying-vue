@@ -1,3 +1,5 @@
+<!-- alurapic/src/components/cadastro/Cadastro.vue -->
+
 <template>
   <div>
     <h1 class="centralizado">Cadastro</h1>
@@ -12,7 +14,11 @@
       <div class="controle">
         <label for="url">URL</label>
         <input v-model.lazy="foto.url" id="url" autocomplete="off" />
-        <imagem-responsiva :url="foto.url" :titulo="foto.titulo" />
+        <imagem-responsiva
+          v-show="foto.url"
+          :url="foto.url"
+          :titulo="foto.titulo"
+        />
       </div>
 
       <div class="controle">
@@ -37,6 +43,8 @@
 <script>
 import ImagemResponsiva from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
+
+// importando a classe Foto
 import Foto from "../../domain/foto/Foto.js";
 
 export default {
@@ -44,15 +52,17 @@ export default {
     "imagem-responsiva": ImagemResponsiva,
     "meu-botao": Botao
   },
+
   data() {
     return {
       foto: new Foto()
     };
   },
+
   methods: {
     grava() {
       console.log(this.foto);
-      foto: new Foto();
+      this.foto = new Foto();
     }
   }
 };
