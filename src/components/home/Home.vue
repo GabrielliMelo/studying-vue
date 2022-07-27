@@ -36,6 +36,7 @@ import Painel from "../shared/painel/Painel.vue";
 import ImagemResponsiva from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
 import transform from "../../directives/Transform";
+import FotoService from "../../domain/foto/FotoService";
 
 export default {
   components: {
@@ -50,7 +51,8 @@ export default {
 
       filtro: "",
 
-      mensagem: ""
+      mensagem: "",
+      resource: {}
     };
   },
 
@@ -67,10 +69,10 @@ export default {
 
   methods: {
     remove(foto) {
-      this.$http.delete(`v1/fotos/${foto._id}`).then(
+      this.service.apaga(foto._id).then(
         () => {
-          let indice = this.fotos.indexOf(foto); // acha a posição da foto na lista
-          this.fotos.splice(indice, 1); // a instrução altera o array
+          let indice = this.fotos.indexOf(foto);
+          this.fotos.splice(indice, 1);
           this.mensagem = "Foto removida com sucesso";
         },
         err => {
@@ -82,13 +84,12 @@ export default {
   },
 
   created() {
-    this.$http
-      .get("v1/fotos")
-      .then(res => res.json())
-      .then(
-        fotos => (this.fotos = fotos),
-        err => console.log(err)
-      );
+    this.service = new FotoService(this.$resource);
+
+    this.service.lista().then(
+      fotos => (this.fotos = fotos),
+      err => console.log(err)
+    );
   },
   directives: {
     "meu-transform": transform

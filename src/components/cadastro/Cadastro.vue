@@ -44,6 +44,7 @@
 import ImagemResponsiva from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
 import Foto from "../../domain/foto/Foto.js";
+import FotoService from "../../domain/foto/FotoService";
 
 export default {
   components: {
@@ -60,10 +61,7 @@ export default {
 
   methods: {
     grava() {
-      console.log(this.foto);
-
-      // o método save realiza um POST por debaixo dos panos enviado os dados passado como parâmetro
-      this.resource.save(this.foto).then(
+      this.service.cadastra(this.foto).then(
         () => (this.foto = new Foto()),
         err => console.log(err)
       );
@@ -71,7 +69,7 @@ export default {
   },
 
   created() {
-    this.resource = this.$resource("v1/fotos{/id}");
+    this.service = new FotoService(this.$resource);
   }
 };
 </script>
