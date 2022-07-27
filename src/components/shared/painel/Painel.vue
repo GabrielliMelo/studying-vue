@@ -47,7 +47,9 @@ export default {
 * {
   box-shadow: 3px 3px 5px rgb(22, 22, 22);
 }
-
+.painel-conteudo {
+  overflow: hidden;
+}
 .painel-fade-enter,
 .painel-fade-leave-active {
   opacity: 0;
