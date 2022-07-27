@@ -1,10 +1,7 @@
-<!-- alurapic/src/components/home/Home.vue -->
-
 <template>
   <div>
     <h1 class="centralizado">Alurapic</h1>
 
-    <!-- novo elemento para exibir mensagens para o usuário -->
     <p v-show="mensagem" class="centralizado">{{ mensagem }}</p>
 
     <input
@@ -15,11 +12,11 @@
     />
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
-        <meu-painel :titulo="foto.titulo">
+        <meu-painel :titulo="foto.titulo" v-meu-transform:rotate.animate="180">
           <imagem-responsiva
             :url="foto.url"
             :titulo="foto.titulo"
-            v-meu-transform:scale.animate="1.2"
+            v-meu-transform:reverse.animate="1.2"
           />
           <meu-botao
             rotulo="remover"
@@ -38,6 +35,7 @@
 import Painel from "../shared/painel/Painel.vue";
 import ImagemResponsiva from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
+import transform from "../../directives/Transform";
 
 export default {
   components: {
@@ -91,6 +89,9 @@ export default {
         fotos => (this.fotos = fotos),
         err => console.log(err)
       );
+  },
+  directives: {
+    "meu-transform": transform
   }
 };
 </script>
