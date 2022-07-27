@@ -15,10 +15,15 @@
           :titulo="foto.titulo"
           :texto="mensagem"
         >
+          <!-- <imagem-responsiva
+            :url="foto.url"
+            :titulo="foto.titulo"
+            v-meu-transform:rotate.animate="30"
+          /> -->
           <imagem-responsiva
             :url="foto.url"
             :titulo="foto.titulo"
-            v-meu-transform.animate.reverse="15"
+            v-meu-transform:scale.animate="1.2"
           />
           <meu-botao
             rotulo="remover"
