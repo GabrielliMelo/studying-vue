@@ -1,6 +1,12 @@
+<!-- alurapic/src/components/home/Home.vue -->
+
 <template>
   <div>
-    <h1 class="centralizado">VUE</h1>
+    <h1 class="centralizado">Alurapic</h1>
+
+    <!-- novo elemento para exibir mensagens para o usuário -->
+    <p v-show="mensagem" class="centralizado">{{ mensagem }}</p>
+
     <input
       type="search"
       class="filtro"
@@ -9,17 +15,7 @@
     />
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
-        <!-- componente sendo usado e passando via props conteudo !! -->
-        <meu-painel
-          v-meu-transform:teste.animate.reverse="15"
-          :titulo="foto.titulo"
-          :texto="mensagem"
-        >
-          <!-- <imagem-responsiva
-            :url="foto.url"
-            :titulo="foto.titulo"
-            v-meu-transform:rotate.animate="30"
-          /> -->
+        <meu-painel :titulo="foto.titulo">
           <imagem-responsiva
             :url="foto.url"
             :titulo="foto.titulo"
@@ -28,32 +24,22 @@
           <meu-botao
             rotulo="remover"
             tipo="button"
-            @botaoAtivado="remove(foto)"
+            estilo="perigo"
             :confirmacao="true"
-            estilo="padrao"
+            @botaoAtivado="remove(foto)"
           />
         </meu-painel>
       </li>
     </ul>
-    <input
-      type="search"
-      class="filtro"
-      @input="Nome = $event.target.value"
-      placeholder="Digite o seu nome"
-    />
   </div>
 </template>
 
 <script>
-//importando o componente
 import Painel from "../shared/painel/Painel.vue";
-import ImagemResponsiva from "../shared/imagem-responsiva/imagemResponsiva.vue";
+import ImagemResponsiva from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
-// importou  diretiva. Tem que adicionar na propriedade directives logo abaixo!
-import transform from "../../directives/Transform";
 
 export default {
-  //declarando meu componente para usar no template
   components: {
     "meu-painel": Painel,
     "imagem-responsiva": ImagemResponsiva,
@@ -62,26 +48,36 @@ export default {
 
   data() {
     return {
-      titulo: "Estudando Vue.js",
-
       fotos: [],
 
       filtro: "",
-      Nome: ""
+
+      mensagem: ""
     };
   },
 
   computed: {
     fotosComFiltro() {
       if (this.filtro) {
-        let exp = new RegExp(this.filtro.trim(), "i"); //sensitive...
+        let exp = new RegExp(this.filtro.trim(), "i");
         return this.fotos.filter(foto => exp.test(foto.titulo));
       } else {
         return this.fotos;
       }
-    },
-    mensagem() {
-      return "Bem vindo(a)," + this.Nome;
+    }
+  },
+
+  methods: {
+    remove(foto) {
+      this.$http.delete(`http://localhost:3000/v1/fotos/${foto._id}`).then(
+        () => {
+          this.mensagem = "Foto removida com sucesso";
+        },
+        err => {
+          this.mensagem = "Não foi possível remover a foto";
+          console.log(err);
+        }
+      );
     }
   },
 
@@ -93,14 +89,6 @@ export default {
         fotos => (this.fotos = fotos),
         err => console.log(err)
       );
-  },
-  methods: {
-    remove(foto) {
-      alert("remover foto: " + foto.titulo);
-    }
-  },
-  directives: {
-    "meu-transform": transform
   }
 };
 </script>
@@ -115,10 +103,6 @@ export default {
 
 .lista-fotos .lista-fotos-item {
   display: inline-block;
-}
-
-.imagem-responsiva {
-  width: 100%;
 }
 
 .filtro {
