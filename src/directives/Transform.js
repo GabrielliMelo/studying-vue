@@ -1,32 +1,35 @@
-// alurapic/src/directives/Transform.js
+import Vue from 'vue';
 
-export default {
-  bind(el, binding, vnode) {
-    let current = 0;
+Vue.directive('meu-transform', {
 
-    el.addEventListener("click", function() {
-      let incremento = binding.value || 0;
+    bind(el, binding, vnode) {
 
-      let efeito;
+        let current = 0;
 
-      if (!binding.arg || binding.arg == "rotate") {
-        if (binding.modifiers.reverse) {
-          current -= incremento;
-        } else {
-          current += incremento;
-        }
-        efeito = `rotate(${current}deg)`;
-      } else if (binding.arg == "scale") {
-        efeito = `scale(${incremento})`;
-      }
+        el.addEventListener('dblclick', function() {
 
-      if (binding.arg == "teste") {
-        this.style.transform = `scale(1.05)`;
-      }
+            let incremento = binding.value || 90;
+            let efeito;
 
-      this.style.transform = efeito;
+            if(!binding.arg || binding.arg == 'rotate') {
+                
+                if(binding.modifiers.reverse) {
+                    current-=incremento;
+                } else {
+                    current+=incremento;
+                }
 
-      if (binding.modifiers.animate) this.style.transition = "transform 0.5s";
-    });
-  }
-};
+                efeito = `rotate(${current}deg)`;
+                
+            } else if(binding.arg == "scale") {
+                efeito = `scale(${incremento})`;
+            }
+
+            el.style.transform = efeito;
+
+            if(binding.modifiers.animate) el.style.transition = 'transform 0.5s';
+        });
+    }
+
+});
+

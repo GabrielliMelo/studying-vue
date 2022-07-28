@@ -1,6 +1,6 @@
-# gabi_alura
+# alurapic
 
-> Estudando vue com alura
+> A Vue.js project
 
 ## Build Setup
 

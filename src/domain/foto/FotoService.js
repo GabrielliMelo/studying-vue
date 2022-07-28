@@ -1,19 +1,27 @@
-// alurapic/src/domain/foto/FotoService.js
-
 export default class FotoService {
-  constructor(resource) {
-    this._resource = resource("v1/fotos{/id}");
-  }
 
-  cadastra(foto) {
-    return this._resource.save(foto);
-  }
+    constructor(resource) {
 
-  lista() {
-    return this._resource.query().then(res => res.json());
-  }
+        this._resource = resource('v1/fotos{/id}');
+    } 
 
-  apaga(id) {
-    return this._resource.delete({ id });
-  }
+    lista() {
+
+        return this._resource
+            .query()
+            .then(res => res.json());
+    }  
+
+    cadastra(foto) {
+
+        return this._resource
+            .save(foto);
+
+    }
+    
+    apaga(id) {
+
+        return this._resource.delete({ id });
+    }
+
 }
