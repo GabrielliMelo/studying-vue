@@ -68,6 +68,12 @@ module.exports = {
     hints: false,
   },
   devtool: "#eval-source-map",
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery/dist/jquery.js",
+      jQuery: "jquery/dist/jquery.js",
+    }),
+  ],
 };
 
 if (process.env.NODE_ENV === "production") {
