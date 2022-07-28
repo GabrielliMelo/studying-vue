@@ -1,27 +1,21 @@
 export default class FotoService {
+  constructor(resource) {
+    this._resource = resource("v1/fotos{/id}");
+  }
 
-    constructor(resource) {
+  lista() {
+    return this._resource.query().then((res) => res.json());
+  }
 
-        this._resource = resource('v1/fotos{/id}');
-    } 
+  cadastra(foto) {
+    return this._resource.save(foto);
+  }
 
-    lista() {
+  apaga(id) {
+    return this._resource.delete({ id });
+  }
 
-        return this._resource
-            .query()
-            .then(res => res.json());
-    }  
-
-    cadastra(foto) {
-
-        return this._resource
-            .save(foto);
-
-    }
-    
-    apaga(id) {
-
-        return this._resource.delete({ id });
-    }
-
+  busca(id) {
+    return this._resource.get({ id }).then((res) => res.json());
+  }
 }
