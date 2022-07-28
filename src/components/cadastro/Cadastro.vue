@@ -7,12 +7,31 @@
     <form @submit.prevent="grava()">
       <div class="controle">
         <label for="titulo">TÍTULO</label>
-        <input id="titulo" autocomplete="off" v-model.lazy="foto.titulo" />
+        <input
+          name="titulo"
+          v-model="foto.titulo"
+          id="titulo"
+          autocomplete="off"
+          v-validate
+          data-vv-rules="required|min:3|max:30"
+          data-vv-as="título"
+        />
+        <span v-show="errors.has('titulo')">{{ errors.first("titulo") }}</span>
       </div>
 
       <div class="controle">
         <label for="url">URL</label>
-        <input id="url" autocomplete="off" v-model.lazy="foto.url" />
+        <input
+          id="url"
+          autocomplete="off"
+          v-model="foto.url"
+          v-validate
+          data-vv-rules="required"
+          data-vv-as="Url"
+          name="url"
+        />
+        <span v-show="errors.has('url')">{{ errors.first("url") }}</span>
+
         <imagem-responsiva
           v-show="foto.url"
           :url="foto.url"
@@ -22,8 +41,19 @@
 
       <div class="controle">
         <label for="descricao">DESCRIÇÃO</label>
-        <textarea id="descricao" autocomplete="off" v-model="foto.descricao">
+        <textarea
+          id="descricao"
+          autocomplete="off"
+          v-model="foto.descricao"
+          v-validate
+          data-vv-rules="required|min:3|max:30"
+          name="descricao"
+          data-vv-as="Descrição"
+        >
         </textarea>
+        <span v-show="errors.has('descricao')">{{
+          errors.first("descricao")
+        }}</span>
       </div>
 
       <div class="centralizado">
@@ -96,5 +126,9 @@ export default {
 
 .centralizado {
   text-align: center;
+}
+
+span {
+  color: red;
 }
 </style>
