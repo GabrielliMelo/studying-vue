@@ -91,7 +91,7 @@ export default {
 
     this.service.lista().then(
       (fotos) => (this.fotos = fotos),
-      (err) => console.log(err)
+      (err) => (this.mensagem = err.message)
     );
   },
 };
